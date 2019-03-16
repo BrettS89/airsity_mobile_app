@@ -1,0 +1,1 @@
+export const getIsoDate = () => new Date(Date.now()).toISOString().split('T')[0];
