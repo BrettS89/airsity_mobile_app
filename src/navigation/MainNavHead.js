@@ -11,7 +11,7 @@ import { getPlatform } from '../utilities/getPlatform';
 const { height, iphonex, iphonexr } = getPlatform();
 const styles = StyleSheet.create({
   mainContainer: {
-    minHeight: iphonex || iphonexr ? 95 : 65,
+    minHeight: iphonex || iphonexr ? 95 : 55,
     paddingHorizontal: 15,
     paddingTop: !iphonex || !iphonexr ? height * 0.04 : height * 0.03,
     paddingBottom: !iphonex || !iphonexr ? 0 : 0,
@@ -32,16 +32,17 @@ const styles = StyleSheet.create({
   genreContainer: {
     flexDirection: 'row',
     backgroundColor: Colors.secondary,
-    width: 100,
+    width: 90,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 4,
+    paddingBottom: 4,
   },
   genreText: {
     color: '#fff',
     fontWeight: '700',
+    fontSize: 12,
   },
   caret: {
     marginLeft: 4,
@@ -72,7 +73,7 @@ class MainNavHead extends React.PureComponent {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.logoContainer}>
-          <Image source={LOGO5} resizeMode="contain" style={{ width: 110, height: 50 }} />
+          <Image source={LOGO5} resizeMode="contain" style={{ width: 95, height: 40 }} />
         </View>
           {this.renderBadge()}
       </View>

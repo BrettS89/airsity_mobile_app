@@ -1,4 +1,5 @@
 import React from 'react';
+import { KeepAwake } from 'expo';
 import { View, FlatList } from 'react-native';
 import styles from './styles';
 import NavHead from '../../navigation/MainNavHead';
@@ -8,6 +9,7 @@ import PlaylistModal from './sub_components/playlistModal';
 export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre }) {
   return (
     <View style={styles.mainContainer}>
+      <KeepAwake />
       <NavHead playlist />
       <View style={styles.playlistContainer}>
         <FlatList

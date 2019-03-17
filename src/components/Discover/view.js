@@ -1,4 +1,5 @@
 import React from 'react';
+import { KeepAwake } from 'expo';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { getIsoDate } from '../../utilities/misc';
 import styles from './styles';
@@ -38,6 +39,7 @@ export default function DiscoverView({ song, nextSong, play, pause, playing }) {
 
   return (
     <View style={{ flex: 1 }}>
+      <KeepAwake />
       <NavHead play />
       <View style={styles.mainContainer}>
         <Image 

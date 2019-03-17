@@ -11,11 +11,15 @@ class Auth extends React.Component {
   async componentDidMount() {
     try {
       const token = await AsyncStorage.getItem('token');
+      console.log(token);
       if (token) {
-        return this.props.navigation.navigate('Main');
+        this.props.navigation.navigate('Main');
+        return;
       }
+      this.setState({ isReady: true });
       this.props.navigation.navigate('Login');
     } catch(e) {
+      console.log('err');
       this.props.navigation.navigate('Login');
     }
   }

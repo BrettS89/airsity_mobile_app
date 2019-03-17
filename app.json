@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "airsity",
-    "slug": "airsity_mobile_app",
+    "slug": "airsity_mobile_app_dev",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [

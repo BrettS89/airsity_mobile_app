@@ -88,11 +88,11 @@ const mainNav = createBottomTabNavigator({
 });
 
 const rootNavigator = createSwitchNavigator({
-  Login: { screen: authNav },
+  Auth: { screen: authNav },
   Signup: { screen: Signup },
   Main: mainNav,
 }, {
-  initialRouteName: 'Main',
+  initialRouteName: 'Auth',
 });
 
 const AppNav = createAppContainer(rootNavigator);
