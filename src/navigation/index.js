@@ -27,7 +27,7 @@ const authNav = createBottomTabNavigator({
   Login: { screen: Login },
   Signup: { screen: Signup },
 }, {
-  initialRouteName: 'Login',
+  initialRouteName: 'Auth',
   tabBarOptions: {
     style: {
       display: 'none'

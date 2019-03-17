@@ -36,6 +36,7 @@ function * getSongsHandler({ payload }) {
   try {
     yield put(appActions.setLoading());
     const { data } = yield apiGetSongs(payload);
+    console.log(data);
     yield put(songsActions.setSongs(data));
     // yield put(appActions.setNotLoading());
   } catch(e) {
@@ -46,7 +47,7 @@ function * getSongsHandler({ payload }) {
 function * nextSongHandler({ payload }) {
   try {
     let songs = yield select(getSongsSelector);
-    if (songs.length === 3) {
+    if (songs.length <= 3) {
       if (payload.action === 'dismiss') {
         yield call(apiListened, payload);
       } else if (payload.action === 'like') {

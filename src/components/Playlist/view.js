@@ -17,6 +17,8 @@ export default function Playlist({ state, songs, play, pause, playing, playingId
           showsVerticalScrollIndicator={false}
           onEndReached={playlistGetMore}
           onEndReachedThreshold={1}
+          // refreshing={this.state.refreshing}
+          // onRefresh={this.getTodos}
           renderItem={song => (
             <SongCard
               song={song.item}

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Input } from '../../shared/components';
 import Colors from '../../shared/styles/colors';
 import styles from './styles';
+import { LOGO5 } from '../../../assets/images';
 
 export default function SignupView(props) {
   return (
@@ -10,8 +11,8 @@ export default function SignupView(props) {
       <View style={styles.signupFormContainer}>
 
         <View style={styles.logoContainer}>
-          {/* <Image source={LOGO_COLOR} resizeMode="contain" style={{ width: 200, height: 50 }} /> */}
-          <Text style={styles.logo}>Airsity</Text>
+          <Image source={LOGO5} resizeMode="contain" style={{ width: 160, height: 50 }} />
+          {/* <Text style={styles.logo}>Airsity</Text> */}
         </View>
 
         <View style={{ marginTop: 40, marginBottom: 15 }}>

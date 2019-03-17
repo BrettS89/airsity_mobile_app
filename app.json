@@ -10,9 +10,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/airsity_logo.png",
     "splash": {
-      "image": "./assets/images/airsitySplash.png",
+      "image": "./assets/images/airsity_splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

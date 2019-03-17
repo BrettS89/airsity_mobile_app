@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Input } from '../../shared/components';
 import Colors from '../../shared/styles/colors';
 import styles from './styles';
-import { LOGO3 } from '../../../assets/images/';
+import { LOGO5 } from '../../../assets/images/';
 
 export default function LoginView(props) {
   return (
@@ -11,7 +11,7 @@ export default function LoginView(props) {
       <View style={styles.loginFormContainer}>
 
         <View style={styles.logoContainer}>
-          <Image source={LOGO3} resizeMode="contain" style={{ width: 140, height: 50 }} />
+          <Image source={LOGO5} resizeMode="contain" style={{ width: 160, height: 50 }} />
           {/* <Text style={styles.logo}>Airsity</Text> */}
         </View>
 

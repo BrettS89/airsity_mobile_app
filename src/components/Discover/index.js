@@ -1,5 +1,5 @@
 import { Audio } from 'expo';
-import { soundObject1, soundObject2 } from '../../index';
+import { soundObject1, soundObject2, playlistSoundObject } from '../../index';
 import React from 'react';
 import DiscoverView from './view';
 
@@ -27,6 +27,7 @@ class Discover extends React.Component {
   }
 
   nextSong = async action => {
+    await playlistSoundObject.unloadAsync();
     if (this.state.player === 1) {
       await soundObject1.unloadAsync();
       await soundObject2.playAsync();
@@ -46,6 +47,7 @@ class Discover extends React.Component {
 
   play = async () => {
     this.setState({ playing: true });
+    await playlistSoundObject.unloadAsync();
     this.props.actions.setIsPlaying();
     if (this.state.player === 1) {
       await soundObject1.playAsync();
