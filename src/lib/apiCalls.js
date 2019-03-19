@@ -12,6 +12,15 @@ const getToken = async () => {
   };
 };
 
+export const apiIsLoggedIn = async () => {
+  try {
+    const config = await getToken();
+    return await axios.get(`${URI}/auth/isloggedin`, config);
+  } catch(e) {
+    throw e;
+  }
+};
+
 export const apiLogin = async body => {
   try {
     return await axios.post(`${URI}/auth/login`, body);

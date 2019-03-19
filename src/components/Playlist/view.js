@@ -14,7 +14,7 @@ export default function Playlist({ state, songs, play, pause, playing, playingId
       <View style={styles.playlistContainer}>
         <FlatList
           data={songs}
-          extraData={state}
+          extraData={[state, playing]}
           keyExtractor={song => song._id}
           showsVerticalScrollIndicator={false}
           onEndReached={playlistGetMore}

@@ -1,13 +1,20 @@
 import React from 'react';
+import { SplashScreen } from 'expo';
 import LoginView from './view';
 
 class Login extends React.Component {
-  state = {
-    email: null,
-    password: null,
-    loading: false,
-  };
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      email: null,
+      password: null,
+      loading: false,
+    };
+
+    SplashScreen.hide();
+  }
+  
   onTextChange = (data, type) => {
     if (type === 'email') {
       this.setState({ email: data });

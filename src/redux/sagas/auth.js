@@ -3,14 +3,21 @@ import {
   call, put, takeLatest, select, fork,
 } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
+import * as songsActions from '../actions/songsActions';
 import * as authActions from '../actions/authActions';
 import * as navigationActions from '../actions/navigationActions';
-import { apiLogin, apiSignup } from '../../lib/apiCalls';
+import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs } from '../../lib/apiCalls';
+import { soundObject1, soundObject2 } from '../../index';
 
 export default [
   loginWatcher,
   signupWatcher,
+  appLoadWatcher,
 ];
+
+function * appLoadWatcher() {
+  yield takeLatest(actionTypes.ON_APP_LOAD, appLoadHandler);
+} 
 
 function * loginWatcher() {
   yield takeLatest(actionTypes.ON_LOGIN, loginHandler);
@@ -18,6 +25,20 @@ function * loginWatcher() {
 
 function * signupWatcher() {
   yield takeLatest(actionTypes.ON_SIGNUP, signupHandler);
+}
+
+function * appLoadHandler() {
+  try {
+    yield call(apiIsLoggedIn);
+    const { data } = yield apiGetSongs('hiphop');
+    yield soundObject1.loadAsync({ uri: data[0].audio });
+    yield soundObject2.loadAsync({ uri: data[1].audio });
+    yield put(songsActions.setSongs(data));
+    yield put(navigationActions.navigateTo({ current: 'Main', previous: 'Login' }));
+  } catch(e) {
+    console.log('appLoadHandler error: ', e);
+    yield put(navigationActions.navigateTo({ current: 'Login', previous: 'Auth' }));
+  }
 }
 
 function * loginHandler({ payload }) {

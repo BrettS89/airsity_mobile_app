@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as playlistActions from '../redux/actions/playlistActions';
 import Colors from '../shared/styles/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { LOGO3, LOGO5 } from '../../assets/images';
+import { LOGO5 } from '../../assets/images';
 import { getPlatform } from '../utilities/getPlatform';
 
 const { height, iphonex, iphonexr } = getPlatform();

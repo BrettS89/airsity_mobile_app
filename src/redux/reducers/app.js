@@ -2,6 +2,7 @@ import { SET_LOADING, SET_NOT_LOADING } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loading: false,
+  showSplash: true,
 };
 
 export default function(state = INITIAL_STATE, { type, payload }) {

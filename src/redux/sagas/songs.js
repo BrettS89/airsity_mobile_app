@@ -11,16 +11,16 @@ import { getSongsSelector, getGenre } from '../selectors';
 import { soundObject1, soundObject2 } from '../../index';
 
 export default [
-  getSongsWatcher,
+  // getSongsWatcher,
   nextSongWatcher,
   setGenreWatcher,
 ];
 
 // WATCHERS ////////////////////////////////////////////////////////
 
-function * getSongsWatcher() {
-  yield takeLatest(actionTypes.GET_SONGS, getSongsHandler);
-}
+// function * getSongsWatcher() {
+//   yield takeLatest(actionTypes.GET_SONGS, getSongsHandler);
+// }
 
 function * nextSongWatcher() {
   yield takeLatest(actionTypes.NEXT_SONG, nextSongHandler);
@@ -31,18 +31,6 @@ function * setGenreWatcher() {
 }
 
 // HANDLERS ////////////////////////////////////////////////////////
-
-function * getSongsHandler({ payload }) {
-  try {
-    yield put(appActions.setLoading());
-    const { data } = yield apiGetSongs(payload);
-    console.log(data);
-    yield put(songsActions.setSongs(data));
-    // yield put(appActions.setNotLoading());
-  } catch(e) {
-    console.log('Get songs error: ', e);
-  }
-}
 
 function * nextSongHandler({ payload }) {
   try {

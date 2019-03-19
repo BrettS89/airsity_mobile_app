@@ -20,12 +20,16 @@ import Genres from '../containers/genres';
 import Discover from '../containers/discover';
 import Playlist from '../containers/playlist';
 import Account from '../containers/account';
+import TermsAndConditions from '../containers/TermsAndConditions';
+import PrivacyPolicy from '../containers/PrivacyPolicy';
 
 
 const authNav = createBottomTabNavigator({
   Auth: { screen: Auth },
   Login: { screen: Login },
   Signup: { screen: Signup },
+  TermsAndConditions: { screen: TermsAndConditions },
+  PrivacyPolicy: { screen: PrivacyPolicy },
 }, {
   initialRouteName: 'Auth',
   tabBarOptions: {

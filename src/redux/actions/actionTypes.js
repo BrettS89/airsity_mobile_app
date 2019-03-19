@@ -1,6 +1,7 @@
 // app actions
 export const SET_LOADING = 'SET_LOADING';
 export const SET_NOT_LOADING = 'SET_NOT_LOADING';
+export const ON_APP_LOAD = 'ON_APP_LOAD';
 
 // auth types
 export const ON_LOGIN = 'ON_LOGIN';
@@ -22,6 +23,8 @@ export const SET_GENRE = 'SET_GENRE';
 export const SET_TRACK = 'SET_AUDIO';
 export const SET_PLAYING = 'PLAY';
 export const SET_PAUSED = 'PAUSE';
+export const PLAYLIST_IS_PLAYING = 'PLAYLIST_IS_PLAYING';
+export const PLAYLIST_IS_PAUSED = 'PLAYLIST_IS_PAUSED';
 
 // playlist actions
 export const GET_PLAYLIST = 'GET_PLAYLIST';

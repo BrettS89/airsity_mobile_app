@@ -18,17 +18,19 @@ class Playlist extends React.Component {
     if (payload._id === this.state.playingId) {
       await playlistSoundObject.playAsync();
       this.setState({ playing: true });
+      this.props.actions.setPlaylistIsPlaying();
     } else {
       await playlistSoundObject.unloadAsync();
       await playlistSoundObject.loadAsync({ uri: payload.audio });
       await playlistSoundObject.playAsync();
       await playlistSoundObject.setIsLoopingAsync(true);
-      await this.setState({ playing: true, playingId: payload._id });
+      this.props.actions.setPlaylistIsPlaying();
+      await this.setState({ playingId: payload._id });
     }
   };
 
   pause = async () => {
-    this.setState({ playing: false });
+    this.props.actions.setPlaylistIsPaused();
     await playlistSoundObject.pauseAsync();
   };
 
@@ -45,7 +47,7 @@ class Playlist extends React.Component {
       <PlaylistView 
         songs={this.props.state.playlist.songs}
         play={this.play}
-        playing={this.state.playing}
+        playing={this.props.state.player.playlistPlaying}
         playingId={this.state.playingId}
         pause={this.pause}
         state={this.state}
