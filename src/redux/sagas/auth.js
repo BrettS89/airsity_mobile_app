@@ -13,6 +13,7 @@ export default [
   loginWatcher,
   signupWatcher,
   appLoadWatcher,
+  logoutWatcher,
 ];
 
 function * appLoadWatcher() {
@@ -25,6 +26,10 @@ function * loginWatcher() {
 
 function * signupWatcher() {
   yield takeLatest(actionTypes.ON_SIGNUP, signupHandler);
+}
+
+function * logoutWatcher() {
+  yield takeLatest(actionTypes.LOGOUT, logoutHandler);
 }
 
 function * appLoadHandler() {
@@ -43,22 +48,56 @@ function * appLoadHandler() {
 
 function * loginHandler({ payload }) {
   try {
-    yield put(authActions.setLoginError(null))
+    yield put(authActions.setLoginLoading(true));
+    yield put(authActions.setLoginError(false));
     const { data } = yield call(apiLogin, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
+    yield fetchSongs();
     yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Login' }));
+    yield put(authActions.setLoginLoading(false));
   } catch(e) {
     yield put(authActions.setLoginError(e.toString()))
     console.log('Login error: ', e);
+    yield put(authActions.setLoginError(true));
+    yield put(authActions.setLoginLoading(false));
   }
 }
 
 function * signupHandler({ payload }) {
   try {
+    yield put(authActions.setSignupLoading(true));
+    yield put(authActions.setSignupError(false));
     const { data } = yield call(apiSignup, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
+    yield fetchSongs();
     yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Signup' }));
+    yield put(authActions.setSignupLoading(false));
   } catch(e) {
     console.log('Signup error ', e);
+    yield put(authActions.setSignupError(true));
+    yield put(authActions.setSignupLoading(false));
+  }
+}
+
+function * logoutHandler() {
+  try {
+    yield AsyncStorage.clear();
+    yield put(authActions.resetStore());
+    yield put(navigationActions.navigateTo({ current: 'Login', previous: 'Account' }));
+  } catch(e) {
+    console.log('logoutHandler error: ', e);
+  }
+}
+
+function * fetchSongs() {
+  try {
+    yield soundObject1.unloadAsync();
+    yield soundObject2.unloadAsync();
+    const { data } = yield apiGetSongs('hiphop');
+    yield soundObject1.loadAsync({ uri: data[0].audio });
+    yield soundObject2.loadAsync({ uri: data[1].audio });
+    yield put(songsActions.setSongs(data));
+  } catch(e) {
+    throw e;
   }
 }

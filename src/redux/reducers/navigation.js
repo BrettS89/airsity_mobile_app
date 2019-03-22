@@ -1,4 +1,4 @@
-import { SET_NAVIGATION } from '../actions/navigationActions';
+import { SET_NAVIGATION } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   previous: null,

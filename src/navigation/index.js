@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  createStackNavigator,
-  createMaterialTopTabNavigator,
   createBottomTabNavigator,
   createSwitchNavigator,
   createAppContainer,
@@ -22,12 +20,14 @@ import Playlist from '../containers/playlist';
 import Account from '../containers/account';
 import TermsAndConditions from '../containers/TermsAndConditions';
 import PrivacyPolicy from '../containers/PrivacyPolicy';
+import LegalDocs from '../components/LegalDocs';
 
 
 const authNav = createBottomTabNavigator({
   Auth: { screen: Auth },
   Login: { screen: Login },
   Signup: { screen: Signup },
+  LegalDocs: { screen: LegalDocs },
   TermsAndConditions: { screen: TermsAndConditions },
   PrivacyPolicy: { screen: PrivacyPolicy },
 }, {

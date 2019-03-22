@@ -7,7 +7,6 @@ class Signup extends React.Component {
     firstName: null,
     email: null,
     password: null,
-    loading: false,
   };
 
   onTextChange = (data, type) => {
@@ -27,11 +26,19 @@ class Signup extends React.Component {
     this.props.actions.onSignup({ date, isoDate, firstName, email, password });
   };
 
+  navigateToLogin = () => {
+    this.props.actions.navigateTo({ current: 'Login', previous: 'Signup' });
+  }
+
   render() {
     return (
       <SignupView
         onTextChange={this.onTextChange}
         onSignup={this.onSignup}
+        navigateToLogin={this.navigateToLogin}
+        navigateTo={() => this.props.navigation.navigate('LegalDocs')}
+        error={this.props.state.auth.signupError}
+        loading={this.props.state.auth.signupLoading}
       />
     );
   }

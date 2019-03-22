@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as appActions from '../redux/actions/appActions';
 
+
 const mapStateToProps = state => ({
   state: {
     app: state.app,

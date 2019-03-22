@@ -31,5 +31,24 @@ export default StyleSheet.create({
   accountText: {
     fontWeight: '600',
     fontSize: 15,
-  }
+  },
+  modalContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+    flex: 1,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  modalContentContainer: {
+    width: '70%',
+    backgroundColor: '#fff',
+    padding: 20,
+    paddingBottom: 40,
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  modalClose: {
+    position: 'relative',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+  },
 });

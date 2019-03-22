@@ -11,16 +11,9 @@ import { getSongsSelector, getGenre } from '../selectors';
 import { soundObject1, soundObject2 } from '../../index';
 
 export default [
-  // getSongsWatcher,
   nextSongWatcher,
   setGenreWatcher,
 ];
-
-// WATCHERS ////////////////////////////////////////////////////////
-
-// function * getSongsWatcher() {
-//   yield takeLatest(actionTypes.GET_SONGS, getSongsHandler);
-// }
 
 function * nextSongWatcher() {
   yield takeLatest(actionTypes.NEXT_SONG, nextSongHandler);
@@ -29,8 +22,6 @@ function * nextSongWatcher() {
 function * setGenreWatcher() {
   yield takeLatest(actionTypes.SET_GENRE, setGenreHandler);
 }
-
-// HANDLERS ////////////////////////////////////////////////////////
 
 function * nextSongHandler({ payload }) {
   try {
@@ -52,11 +43,9 @@ function * nextSongHandler({ payload }) {
         const body = payload.song;
         yield call(apiAddToPlaylist, body);
       }
-
       songs.shift();
     }
     yield put(songsActions.setSongs(songs));
-
   } catch(e) {
     console.log('Next song error', e);
   }

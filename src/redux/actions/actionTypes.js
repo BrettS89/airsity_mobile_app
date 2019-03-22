@@ -8,6 +8,9 @@ export const ON_LOGIN = 'ON_LOGIN';
 export const ON_SIGNUP = 'ON_SIGNUP';
 export const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR';
 export const SET_SIGNUP_ERROR = 'SET_SIGNUP_ERROR';
+export const LOGOUT = 'LOGOUT';
+export const SET_LOGIN_LOADING = 'SET_LOGIN_LOADING';
+export const SET_SIGNUP_LOADING = 'SET_SIGNUP_LOADING';
 
 // nav actions
 export const NAVIGATE_TO = 'NAVIGATE_TO';

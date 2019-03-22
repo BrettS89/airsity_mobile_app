@@ -4,8 +4,32 @@ import { Input } from '../../shared/components';
 import Colors from '../../shared/styles/colors';
 import styles from './styles';
 import { LOGO5 } from '../../../assets/images/';
+import { Spinner } from '../../shared/components/Spinner';
 
 export default function LoginView(props) {
+
+  const showError = () => {
+    if (props.error) return <Text style={{ color: 'red', fontSize: 13 }}>We couldn't log you in. Please try again.</Text>;
+  };
+
+  const buttonOrSpinner = () => {
+    if (props.loading) {
+      return (
+        <View>
+          <Spinner color={Colors.main} />
+        </View>
+      )
+    }
+    return (
+      <TouchableOpacity  
+            style={styles.button}
+            onPress={props.onLogin}
+      >
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>  
+    )
+  };
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.loginFormContainer}>
@@ -39,18 +63,13 @@ export default function LoginView(props) {
           </View> 
 
           <View>
-            {/* {this.showError()} */}
+            {showError()}
           </View>
 
         </View>    
 
         <View>
-          <TouchableOpacity  
-            style={styles.button}
-            onPress={props.onLogin}
-          >
-            {/* {this.spinnerOrText()} */}<Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>  
+          {buttonOrSpinner()}
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
@@ -59,6 +78,15 @@ export default function LoginView(props) {
             <Text style={{ color: Colors.secondary, fontWeight: '700' }}> Sign Up</Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity style={styles.tcContainer} onPress={props.navigateTo}>
+          <Text style={styles.tcText}>By signing up or logging in you agree to our 
+          <Text style={styles.tcText2}> terms and conditions </Text>
+          <Text style={styles.tcText}>and </Text>
+          <Text style={styles.tcText2}>privacy policy.</Text>
+          </Text>
+        </TouchableOpacity>
+
       </View>
     </View>
   );
