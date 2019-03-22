@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Airsity",
-    "slug": "airsity_mobile_app_dev",
+    "slug": "airsity_mobile_app",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/airsity_logo.png",
+    "icon": "./assets/images/airsityIcon.png",
     "splash": {
       "image": "./assets/images/airsity_splash.png",
       "resizeMode": "contain",
