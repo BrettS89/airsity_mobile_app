@@ -34,6 +34,10 @@ class Playlist extends React.Component {
     await playlistSoundObject.pauseAsync();
   };
 
+  refresh = () => {
+    this.props.actions.isRefreshing();
+  };
+
   selectGenre = async payload => {
     this.props.actions.togglePlaylistModal();
     this.props.actions.setPlaylistGenre(payload);
@@ -55,6 +59,8 @@ class Playlist extends React.Component {
         modalOpen={this.props.state.playlist.modal}
         closeModal={this.props.actions.togglePlaylistModal}
         selectGenre={this.selectGenre}
+        refresh={this.refresh}
+        isRefreshing={this.props.state.playlist.isRefreshing}
       />
     );
   }

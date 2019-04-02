@@ -1,5 +1,5 @@
 import React from 'react';
-import { Audio } from 'expo';
+import { Audio, SplashScreen } from 'expo';
 import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './redux';
@@ -12,6 +12,12 @@ export const soundObject2 = new Audio.Sound();
 export const playlistSoundObject = new Audio.Sound();
 
 class AppContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    SplashScreen.preventAutoHide();
+  }
+
   render () {
     return (
       <Provider store={store()}>

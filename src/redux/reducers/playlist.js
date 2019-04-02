@@ -1,9 +1,10 @@
-import { SET_PLAYLIST, TOGGLE_PLAYLIST_MODAL, SET_PLAYLIST_GENRE } from '../actions/actionTypes';
+import { SET_PLAYLIST, TOGGLE_PLAYLIST_MODAL, SET_PLAYLIST_GENRE, SET_REFRESHING } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   songs: [],
   genre: { display: 'All genres', value: 'all' },
   modal: false,
+  isRefreshing: false,
 };
 
 export default function(state = INITIAL_STATE, { type, payload }) {
@@ -25,6 +26,12 @@ export default function(state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         genre: payload,
+      };
+
+    case SET_REFRESHING:
+      return {
+        ...state,
+        isReFreshing: payload,
       };
 
     default:

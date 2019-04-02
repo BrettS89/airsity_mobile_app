@@ -35,10 +35,7 @@ function * logoutWatcher() {
 function * appLoadHandler() {
   try {
     yield call(apiIsLoggedIn);
-    const { data } = yield apiGetSongs('hiphop');
-    yield soundObject1.loadAsync({ uri: data[0].audio });
-    yield soundObject2.loadAsync({ uri: data[1].audio });
-    yield put(songsActions.setSongs(data));
+    yield fetchSongs();
     yield put(navigationActions.navigateTo({ current: 'Main', previous: 'Login' }));
   } catch(e) {
     console.log('appLoadHandler error: ', e);
@@ -94,9 +91,10 @@ function * fetchSongs() {
     yield soundObject1.unloadAsync();
     yield soundObject2.unloadAsync();
     const { data } = yield apiGetSongs('hiphop');
-    yield soundObject1.loadAsync({ uri: data[0].audio });
-    yield soundObject2.loadAsync({ uri: data[1].audio });
-    yield put(songsActions.setSongs(data));
+    const songs = data.sort((a, b) => b.popularity - a.popularity);
+    yield soundObject1.loadAsync({ uri: songs[0].audio });
+    yield soundObject2.loadAsync({ uri: songs[1].audio });
+    yield put(songsActions.setSongs(songs));
   } catch(e) {
     throw e;
   }

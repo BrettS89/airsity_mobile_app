@@ -11,8 +11,6 @@ class Discover extends React.Component {
       playing: false,
       player: 1,
     };
-
-    SplashScreen.hide();
   }
 
   nextSong = async action => {
@@ -58,6 +56,7 @@ class Discover extends React.Component {
   };
 
   render() {
+    SplashScreen.hide();
     return (
       <DiscoverView
         song={this.props.state.songs[0]}

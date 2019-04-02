@@ -34,7 +34,8 @@ function * nextSongHandler({ payload }) {
         yield call(apiAddToPlaylist, body);
       }
       const genre = yield select(getGenre);
-      const { data } = yield call(apiGetSongs, genre.value);
+      let { data } = yield call(apiGetSongs, genre.value);
+      data = data.sort((a, b) => b.popularity - a.popularity);
       songs = data; [...songs, ...data];
     } else {
       if (payload.action === 'dismiss') {
@@ -58,7 +59,8 @@ function * setGenreHandler({ payload }) {
     yield soundObject2.unloadAsync();
     yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Genres' }));
     yield put(appActions.setLoading());
-    const { data } = yield call(apiGetSongs, payload.value);
+    let { data } = yield call(apiGetSongs, payload.value);
+    data = data.sort((a, b) => b.popularity - a.popularity);
     yield soundObject1.loadAsync({ uri: data[0].audio});
     yield soundObject2.loadAsync({ uri: data[1].audio});
     yield put(songsActions.setSongs(data));

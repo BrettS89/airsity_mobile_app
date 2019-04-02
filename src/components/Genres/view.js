@@ -26,7 +26,7 @@ export default function GenresView(props) {
 
           <TouchableOpacity
             style={styles.genreButton}
-            onPress={() => props.setGenre({ display: 'Pop', value: 'pop' })}
+            onPress={() => props.setGenre({ display: 'R&B', value: 'rnb' })}
           >
             <Text style={styles.genreText}>R&B</Text>
           </TouchableOpacity>
