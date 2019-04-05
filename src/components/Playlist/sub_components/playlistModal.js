@@ -32,7 +32,7 @@ export default function PlaylistModal({ modalOpen, closeModal, selectGenre }) {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.modalButton} onPress={() => selectGenre({ display: 'R&B', value: 'rnb' })}>
-                <Text style={styles.modalText}>Pop</Text>
+                <Text style={styles.modalText}>R&B</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.modalButton} onPress={() => selectGenre({ display: 'EDM', value: 'edm' })}>

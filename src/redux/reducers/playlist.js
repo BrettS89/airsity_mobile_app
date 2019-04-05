@@ -1,4 +1,4 @@
-import { SET_PLAYLIST, TOGGLE_PLAYLIST_MODAL, SET_PLAYLIST_GENRE, SET_REFRESHING } from '../actions/actionTypes';
+import { SET_PLAYLIST, TOGGLE_PLAYLIST_MODAL, SET_PLAYLIST_GENRE, SET_REFRESHING, ADD_TO_PLAYLIST } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   songs: [],
@@ -32,6 +32,12 @@ export default function(state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         isReFreshing: payload,
+      };
+
+    case ADD_TO_PLAYLIST:
+      return {
+        ...state,
+        songs: [payload, ...state.songs],
       };
 
     default:

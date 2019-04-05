@@ -6,8 +6,9 @@ import * as songsActions from '../actions/songsActions';
 import * as playerActions from '../actions/playerActions';
 import * as appActions from '../actions/appActions';
 import * as navigationActions from '../actions/navigationActions';
+import * as playlistActions from '../actions/playlistActions';
 import { apiGetSongs, apiListened, apiAddToPlaylist } from '../../lib/apiCalls';
-import { getSongsSelector, getGenre } from '../selectors';
+import { getSongsSelector, getGenre, getPlaylistGenre } from '../selectors';
 import { soundObject1, soundObject2 } from '../../index';
 
 export default [
@@ -26,12 +27,16 @@ function * setGenreWatcher() {
 function * nextSongHandler({ payload }) {
   try {
     let songs = yield select(getSongsSelector);
+    const playlistGenre = yield select(getPlaylistGenre);
     if (songs.length <= 3) {
       if (payload.action === 'dismiss') {
         yield call(apiListened, payload);
       } else if (payload.action === 'like') {
         const body = payload.song;
-        yield call(apiAddToPlaylist, body);
+        const { data } = yield call(apiAddToPlaylist, body);
+        if (playlistGenre.value === 'all' || playlistGenre.value === data.song.genre) {
+          yield put(playlistActions.addToPlaylist(data));
+        }
       }
       const genre = yield select(getGenre);
       let { data } = yield call(apiGetSongs, genre.value);
@@ -42,7 +47,10 @@ function * nextSongHandler({ payload }) {
         yield call(apiListened, payload);
       } else if (payload.action === 'like') {
         const body = payload.song;
-        yield call(apiAddToPlaylist, body);
+        const { data } = yield call(apiAddToPlaylist, body);
+        if (playlistGenre.value === 'all' || playlistGenre.value === data.song.genre) {
+          yield put(playlistActions.addToPlaylist(data));
+        }
       }
       songs.shift();
     }
