@@ -12,8 +12,8 @@ export default function Landing() {
 
       <View style={styles.mainContainer}>
         <Image
-          resizeMode="cover" 
-          source={{ uri: song.photo }}
+          resizeMode="cover"
+          source={{ uri: 'https://test.jpg' }}
           style={styles.albumArt}
         />
         <Text style={styles.title}>
@@ -23,13 +23,13 @@ export default function Landing() {
           Chris Brown
         </Text>
         <View style={styles.actions}>
-          <TouchableOpacity onPress={() => nextSong({ action: 'dismiss', song: song._id })}>
+          <TouchableOpacity>
             <Player name="close" size={65} color={Colors.main} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.playPause} onPress={play}>
+          <TouchableOpacity style={styles.playPause}>
             <Player name="play-circle" size={85} color={Colors.secondary} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => nextSong({ action: 'like', song: body })}>
+          <TouchableOpacity>
             <Player name="heart" size={50} color={Colors.main} />
           </TouchableOpacity>
         </View>

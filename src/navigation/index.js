@@ -21,6 +21,7 @@ import Account from '../containers/account';
 import TermsAndConditions from '../containers/TermsAndConditions';
 import PrivacyPolicy from '../containers/PrivacyPolicy';
 import LegalDocs from '../components/LegalDocs';
+import Landing from '../containers/landing';
 
 
 const authNav = createBottomTabNavigator({
@@ -30,6 +31,7 @@ const authNav = createBottomTabNavigator({
   LegalDocs: { screen: LegalDocs },
   TermsAndConditions: { screen: TermsAndConditions },
   PrivacyPolicy: { screen: PrivacyPolicy },
+  Landing: { screen: Landing },
 }, {
   initialRouteName: 'Auth',
   tabBarOptions: {
