@@ -1,13 +1,13 @@
 import React from 'react';
 import { KeepAwake } from 'expo';
-import { View, FlatList } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import styles from './styles';
 import NavHead from '../../navigation/MainNavHead';
 import SongCard from './sub_components/songCard';
 import PlaylistModal from './sub_components/playlistModal';
 
-export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre, refresh, isRefreshing }) {
-  return (
+export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre, refresh, isRefreshing, loading }) {
+  return songs.length > 0 || loading ? (
     <View style={styles.mainContainer}>
       <KeepAwake />
       <NavHead playlist />
@@ -38,5 +38,18 @@ export default function Playlist({ state, songs, play, pause, playing, playingId
         selectGenre={selectGenre}
       />
     </View>
-  );
+  )
+  : (
+    <View style={{ flex: 1 }}>
+      <NavHead playlist />
+      <View style={{ padding: 20 }}>
+        <Text style={{ fontSize: 16 }}>You don't have any songs in this playlist</Text>
+      </View>
+      <PlaylistModal 
+        modalOpen={modalOpen}
+        closeModal={closeModal}
+        selectGenre={selectGenre}
+      />
+    </View>
+  )
 }

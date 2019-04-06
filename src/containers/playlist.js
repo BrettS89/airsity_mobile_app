@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
   state: {
     playlist: state.playlist,
     player: state.player,
+    loading: state.app.loading,
   },
 });
 

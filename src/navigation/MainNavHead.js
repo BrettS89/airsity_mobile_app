@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
 });
 
 class MainNavHead extends React.PureComponent {
+
+  additionalStyles = this.props.styles ? this.props.styles : {};
+
   renderBadge = () => {
     if (this.props.play) {
       return (
@@ -71,7 +74,7 @@ class MainNavHead extends React.PureComponent {
 
   render() {
     return (
-      <View style={styles.mainContainer}>
+      <View style={[styles.mainContainer, this.additionalStyles]}>
         <View style={styles.logoContainer}>
           <Image source={LOGO5} resizeMode="contain" style={{ width: 95, height: 40 }} />
         </View>

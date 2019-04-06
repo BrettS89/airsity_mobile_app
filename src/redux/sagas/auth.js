@@ -10,7 +10,7 @@ import * as authActions from '../actions/authActions';
 import * as navigationActions from '../actions/navigationActions';
 import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs, apiFacebookAuth } from '../../lib/apiCalls';
 import { soundObject1, soundObject2 } from '../../index';
-import { getIsoDate } from '../../utilities/misc';
+import { getIsoDate, validateEmailFormat } from '../../utilities/misc';
 
 export default [
   loginWatcher,
@@ -72,6 +72,11 @@ function * signupHandler({ payload }) {
   try {
     yield put(authActions.setSignupLoading(true));
     yield put(authActions.setSignupError(false));
+    if (!validateEmailFormat(payload.email)) {
+      yield put(authActions.setSignupError(true));
+      yield put(authActions.setSignupLoading(false));
+      return;
+    }
     const { data } = yield call(apiSignup, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
     yield fetchSongs();

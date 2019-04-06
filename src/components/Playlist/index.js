@@ -61,6 +61,7 @@ class Playlist extends React.Component {
         selectGenre={this.selectGenre}
         refresh={this.refresh}
         isRefreshing={this.props.state.playlist.isRefreshing}
+        loading={this.props.state.loading}
       />
     );
   }
