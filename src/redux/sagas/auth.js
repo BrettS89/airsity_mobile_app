@@ -96,7 +96,10 @@ function * facebookAuthHandler() {
       permissions: ['public_profile', 'email']
     });
 
-    if (type === 'cancel') return;
+    if (type === 'cancel') {
+      yield put(authActions.setFacebookLoading(false));
+      return;
+    }
 
     let { data } = yield axios.get(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email`);
     data.date = Date.now();
