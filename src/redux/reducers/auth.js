@@ -1,4 +1,4 @@
-import { SET_LOGIN_ERROR, SET_SIGNUP_ERROR, SET_LOGIN_LOADING, SET_SIGNUP_LOADING } from '../actions/actionTypes';
+import { SET_LOGIN_ERROR, SET_SIGNUP_ERROR, SET_LOGIN_LOADING, SET_SIGNUP_LOADING, SET_FACEBOOK_LOADING } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loginError: false,
@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   isLoggedIn: false,
   loginLoading: false,
   signupLoading: false,
+  facebookLoading: false,
 };
 
 export default function(state = INITIAL_STATE, { type, payload }) {
@@ -33,6 +34,12 @@ export default function(state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         signupLoading: payload,
+      };
+
+    case SET_FACEBOOK_LOADING:
+      return {
+        ...state,
+        facebookLoading: payload,
       };
 
     default:

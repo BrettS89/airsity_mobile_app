@@ -35,6 +35,22 @@ export default StyleSheet.create({
     borderRadius: 50,
     height: 45
   },
+  facebookButton: {
+    flexDirection: 'row',
+    justifyContent: 'center', 
+    alignItems: 'center',
+    // backgroundColor: Colors.secondary,
+    borderWidth: 3,
+    borderColor: Colors.secondary,
+    borderRadius: 50,
+    height: 45,
+  },
+  facebookText: {
+    color: Colors.secondary,
+    fontWeight: '600',
+    fontSize: 15,
+    marginLeft: 6,
+  },
   buttonText: {
     color: Colors.main,
     fontWeight: '600',

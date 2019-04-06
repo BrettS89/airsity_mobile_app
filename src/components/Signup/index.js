@@ -39,6 +39,8 @@ class Signup extends React.Component {
         navigateTo={() => this.props.navigation.navigate('LegalDocs')}
         error={this.props.state.auth.signupError}
         loading={this.props.state.auth.signupLoading}
+        facebookAuth={this.props.actions.facebookAuth}
+        facebookLoading={this.props.state.auth.facebookLoading}
       />
     );
   }

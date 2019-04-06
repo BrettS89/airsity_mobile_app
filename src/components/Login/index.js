@@ -40,6 +40,8 @@ class Login extends React.Component {
         navigateTo={() => this.props.navigation.navigate('LegalDocs')}
         error={this.props.state.auth.loginError}
         loading={this.props.state.auth.loginLoading}
+        facebookAuth={this.props.actions.facebookAuth}
+        facebookLoading={this.props.state.auth.facebookLoading}
       />
     );
   }

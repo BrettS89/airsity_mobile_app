@@ -5,6 +5,7 @@ import { Input } from '../../shared/components';
 import Colors from '../../shared/styles/colors';
 import styles from './styles';
 import { LOGO5 } from '../../../assets/images';
+import Facebook from 'react-native-vector-icons/FontAwesome';
 
 export default function SignupView(props) {
 
@@ -22,11 +23,30 @@ export default function SignupView(props) {
     }
     return (
       <TouchableOpacity  
-            style={styles.button}
-            onPress={props.onSignup}
+        style={styles.button}
+        onPress={props.onSignup}
       >
         <Text style={styles.buttonText}>Sign up</Text>
       </TouchableOpacity>  
+    )
+  };
+
+  const facebookOrSpinner = () => {
+    if (props.facebookLoading) {
+      return (
+        <View>
+          <Spinner color={Colors.secondary} />
+        </View>
+      )
+    }
+    return (
+      <TouchableOpacity  
+        style={styles.facebookButton}
+        onPress={props.facebookAuth}
+      >
+        <Facebook size={25} name="facebook-square" color={Colors.secondary} />
+        <Text style={styles.facebookText}>Facebook signup</Text>
+      </TouchableOpacity>
     )
   };
 
@@ -79,6 +99,10 @@ export default function SignupView(props) {
 
         <View>
           {buttonOrSpinner()}
+          <View style={{ width: '100%', alignItems: 'center', marginVertical: 5 }}>
+            <Text>or</Text>
+          </View>
+          {facebookOrSpinner()}
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>

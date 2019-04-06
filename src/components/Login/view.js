@@ -5,6 +5,7 @@ import Colors from '../../shared/styles/colors';
 import styles from './styles';
 import { LOGO5 } from '../../../assets/images/';
 import { Spinner } from '../../shared/components/Spinner';
+import Facebook from 'react-native-vector-icons/FontAwesome';
 
 export default function LoginView(props) {
 
@@ -22,11 +23,30 @@ export default function LoginView(props) {
     }
     return (
       <TouchableOpacity  
-            style={styles.button}
-            onPress={props.onLogin}
+        style={styles.button}
+        onPress={props.onLogin}
       >
         <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>  
+      </TouchableOpacity>
+    )
+  };
+
+  const facebookOrSpinner = () => {
+    if (props.facebookLoading) {
+      return (
+        <View>
+          <Spinner color={Colors.secondary} />
+        </View>
+      )
+    }
+    return (
+      <TouchableOpacity  
+        style={styles.facebookButton}
+        onPress={props.facebookAuth}
+      >
+        <Facebook size={25} name="facebook-square" color={Colors.secondary} />
+        <Text style={styles.facebookText}>Facebook login</Text>
+      </TouchableOpacity>
     )
   };
 
@@ -66,10 +86,14 @@ export default function LoginView(props) {
             {showError()}
           </View>
 
-        </View>    
+        </View>
 
         <View>
           {buttonOrSpinner()}
+          <View style={{ width: '100%', alignItems: 'center', marginVertical: 5 }}>
+            <Text>or</Text>
+          </View>
+          {facebookOrSpinner()}
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>

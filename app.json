@@ -10,6 +10,9 @@
     ],
     "version": "1.0.2",
     "orientation": "portrait",
+    "facebookScheme": "fb2151282281652049",
+    "facebookAppId": "2151282281652049",
+    "facebookDisplayName": "Airsity",
     "icon": "./assets/images/airsityIcon.png",
     "splash": {
       "image": "./assets/images/airsity_splash.png",

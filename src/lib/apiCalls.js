@@ -37,6 +37,14 @@ export const apiSignup = async body => {
   }
 };
 
+export const apiFacebookAuth = async body => {
+  try {
+    return await axios.post(`${URI}/auth/facebook`, body);
+  } catch(e) {
+    throw e;
+  }
+}
+
 export const apiGetSongs = async body => {
   const config = await getToken();
   try {

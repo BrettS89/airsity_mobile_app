@@ -1,4 +1,6 @@
 import { AsyncStorage } from 'react-native';
+import { Constants, Facebook } from 'expo';
+import axios from 'axios';
 import {
   call, put, takeLatest, select, fork,
 } from 'redux-saga/effects';
@@ -6,14 +8,16 @@ import * as actionTypes from '../actions/actionTypes';
 import * as songsActions from '../actions/songsActions';
 import * as authActions from '../actions/authActions';
 import * as navigationActions from '../actions/navigationActions';
-import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs } from '../../lib/apiCalls';
+import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs, apiFacebookAuth } from '../../lib/apiCalls';
 import { soundObject1, soundObject2 } from '../../index';
+import { getIsoDate } from '../../utilities/misc';
 
 export default [
   loginWatcher,
   signupWatcher,
   appLoadWatcher,
   logoutWatcher,
+  facebookAuthWatcher,
 ];
 
 function * appLoadWatcher() {
@@ -26,6 +30,10 @@ function * loginWatcher() {
 
 function * signupWatcher() {
   yield takeLatest(actionTypes.ON_SIGNUP, signupHandler);
+}
+
+function * facebookAuthWatcher() {
+  yield takeLatest(actionTypes.FACEBOOK_AUTH, facebookAuthHandler);
 }
 
 function * logoutWatcher() {
@@ -73,6 +81,32 @@ function * signupHandler({ payload }) {
     console.log('Signup error ', e);
     yield put(authActions.setSignupError(true));
     yield put(authActions.setSignupLoading(false));
+  }
+}
+
+function * facebookAuthHandler() {
+  try {
+    yield put(authActions.setFacebookLoading(true));
+    const { type, token } = yield Facebook.logInWithReadPermissionsAsync('2151282281652049', {
+      permissions: ['public_profile', 'email']
+    });
+
+    if (type === 'cancel') return;
+
+    let { data } = yield axios.get(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email`);
+    data.date = Date.now();
+    data.isoDate = getIsoDate();
+    const res = yield call(apiFacebookAuth, data);
+    const airsityToken = res.data.token;
+    yield AsyncStorage.setItem('token', JSON.stringify(airsityToken));
+    yield fetchSongs();
+    yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Login' }));
+    yield put(authActions.setFacebookLoading(false));
+  } catch(e) {
+    console.log('facebookAuthHandler error: ', e);
+    yield put(authActions.setLoginError(true));
+    yield put(authActions.setSignupError(true));
+    yield put(authActions.setFacebookLoading(false));
   }
 }
 
