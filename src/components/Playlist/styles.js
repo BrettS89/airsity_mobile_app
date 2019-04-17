@@ -58,11 +58,11 @@ export default StyleSheet.create({
   },
   modalContentContainer: {
     width: '70%',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.87)',
     padding: 20,
     paddingBottom: 40,
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 20,
   },
   modalClose: {
     position: 'relative',

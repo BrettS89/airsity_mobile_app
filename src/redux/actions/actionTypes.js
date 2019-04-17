@@ -23,6 +23,10 @@ export const GET_SONGS = 'GET_SONGS';
 export const SET_SONGS = 'SET_SONGS';
 export const NEXT_SONG = 'NEXT_SONG';
 export const SET_GENRE = 'SET_GENRE';
+export const SET_GENRE_DISPLAY = 'SET_GENRE_DISPLAY';
+export const TOGGLE_SORT_MODAL = 'TOGGLE_SORT_MODAL';
+export const CHANGE_SORT_BY = 'CHANGE_SORT_BY';
+export const CHANGE_SORT_BY_DISPLAY = 'CHANGE_SORT_BY_DISPLAY';
 
 // player actions
 export const SET_TRACK = 'SET_AUDIO';

@@ -1,6 +1,7 @@
 import React from 'react';
 import PlaylistView from './view';
 import { soundObject1, soundObject2, playlistSoundObject } from '../../index';
+import { apiPlaylistPlay } from '../../lib/apiCalls';
 
 class Playlist extends React.Component {
   state = {
@@ -13,6 +14,7 @@ class Playlist extends React.Component {
   }
 
   play = async payload => {
+    try {
     await soundObject1.pauseAsync();
     await soundObject2.pauseAsync();
     if (payload._id === this.state.playingId) {
@@ -26,6 +28,10 @@ class Playlist extends React.Component {
       await playlistSoundObject.setIsLoopingAsync(true);
       this.props.actions.setPlaylistIsPlaying();
       await this.setState({ playingId: payload._id });
+      apiPlaylistPlay(payload.genre);
+    }
+    } catch(e) {
+      console.log('Playlist play error: ', e);
     }
   };
 

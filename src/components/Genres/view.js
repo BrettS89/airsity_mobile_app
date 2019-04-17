@@ -6,7 +6,7 @@ import NavHead from '../../navigation/MainNavHead';
 export default function GenresView(props) {
   return (
     <View>
-      <NavHead play />
+      <NavHead />
       <View style={styles.contentContainer}>
         <Text style={styles.header}>Choose a genre</Text>
         <View style={styles.buttonsContainer}>

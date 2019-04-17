@@ -80,7 +80,7 @@ function * signupHandler({ payload }) {
     const { data } = yield call(apiSignup, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Signup' }));
+    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Signup' }));
     yield put(authActions.setSignupLoading(false));
   } catch(e) {
     console.log('Signup error ', e);
@@ -105,7 +105,7 @@ function * facebookAuthHandler() {
     const airsityToken = res.data.token;
     yield AsyncStorage.setItem('token', JSON.stringify(airsityToken));
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Login' }));
+    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Login' }));
     yield put(authActions.setFacebookLoading(false));
   } catch(e) {
     console.log('facebookAuthHandler error: ', e);
@@ -129,12 +129,29 @@ function * fetchSongs() {
   try {
     yield soundObject1.unloadAsync();
     yield soundObject2.unloadAsync();
-    const { data } = yield apiGetSongs('hiphop');
+    const lastGenre = yield AsyncStorage.getItem('genre');
+    const lastSort = yield AsyncStorage.getItem('sort');
+    const genre = lastGenre ? JSON.parse(lastGenre).value : 'hiphop';
+    const sort = lastSort ? JSON.parse(lastSort).value : 'popular';
+    const { data } = yield apiGetSongs({ genre, sort });
     const songs = data.sort((a, b) => b.popularity - a.popularity);
     yield soundObject1.loadAsync({ uri: songs[0].audio });
     yield soundObject2.loadAsync({ uri: songs[1].audio });
     yield put(songsActions.setSongs(songs));
+    
+    if (lastGenre) {
+      yield put(songsActions.setGenreDisplay(JSON.parse(lastGenre)));
+    }  else {
+      yield put(songsActions.setGenreDisplay({ value: 'hiphop', display: 'Hip hop' }));
+    }
+    if (lastSort) {
+      yield put(songsActions.changeSortByDisplay(JSON.parse(lastSort)));
+    }  else {
+      yield put(songsActions.changeSortByDisplay({ value: 'popular', display: 'Popular songs' }));
+    }
+
   } catch(e) {
+    console.log('Fetch songs error: ', e);
     throw e;
   }
 }

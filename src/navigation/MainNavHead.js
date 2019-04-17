@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import * as playlistActions from '../redux/actions/playlistActions';
+import * as songsActions from '../redux/actions/songsActions';
 import Colors from '../shared/styles/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { LOGO5 } from '../../assets/images';
@@ -44,20 +45,29 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12,
   },
+  sortText: {
+    color: Colors.secondary,
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  sortPreText: {
+    fontWeight: '500',
+    fontSize: 13,
+  },
   caret: {
     marginLeft: 4,
   }
 });
 
-class MainNavHead extends React.PureComponent {
-
-  additionalStyles = this.props.styles ? this.props.styles : {};
-
+class MainNavHead extends React.Component {
+ 
   renderBadge = () => {
     if (this.props.play) {
       return (
-        <TouchableOpacity style={styles.genreContainer}>
-          <Text style={styles.genreText}>{this.props.state.genre.display}</Text>
+        <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => this.props.actions.toggleSortModal(true)}>
+          <Text style={styles.sortPreText}>Sort by: </Text>
+          <Text style={styles.sortText}>{this.props.state.sortBy.display}</Text>
+          <Icon style={[styles.caret, { color: Colors.secondary }]} name="caret-down" color="#fff" size={16} />
         </TouchableOpacity>
       );
     }
@@ -74,7 +84,7 @@ class MainNavHead extends React.PureComponent {
 
   render() {
     return (
-      <View style={[styles.mainContainer, this.additionalStyles]}>
+      <View style={styles.mainContainer}>
         <View style={styles.logoContainer}>
           <Image source={LOGO5} resizeMode="contain" style={{ width: 95, height: 40 }} />
         </View>
@@ -87,6 +97,7 @@ class MainNavHead extends React.PureComponent {
 const mapStateToProps = state => ({
   state: {
     genre: state.songs.genre,
+    sortBy: state.songs.sort,
     playlistGenre: state.playlist.genre,
   }
 });
@@ -94,6 +105,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   const allActions = {
     ...playlistActions,
+    ...songsActions,
   };
 
   return {

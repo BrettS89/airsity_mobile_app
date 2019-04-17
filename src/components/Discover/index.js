@@ -64,6 +64,9 @@ class Discover extends React.Component {
         play={this.play}
         pause={this.pause}
         playing={this.props.state.player.playing}
+        modalOpen={this.props.state.sortModal}
+        toggleSortModal={this.props.actions.toggleSortModal}
+        changeSortBy={this.props.actions.changeSortBy}
       />
     );
   }

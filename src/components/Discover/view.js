@@ -4,11 +4,12 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { getIsoDate } from '../../utilities/misc';
 import styles from './styles';
 import NavHead from '../../navigation/MainNavHead';
+import SortModal from './sub_components/sortModal';
 import Colors from '../../shared/styles/colors';
 import Player from 'react-native-vector-icons/FontAwesome';
 import Pause from 'react-native-vector-icons/MaterialIcons';
 
-export default function DiscoverView({ song, nextSong, play, pause, playing }) {
+export default function DiscoverView({ song, nextSong, play, pause, playing, modalOpen, toggleSortModal, changeSortBy }) {
   const body = {
     date: Date.now(),
     isoDate: getIsoDate(),
@@ -42,7 +43,7 @@ export default function DiscoverView({ song, nextSong, play, pause, playing }) {
       <KeepAwake />
       <NavHead play />
       <View style={styles.mainContainer}>
-        <Image 
+        <Image
           resizeMode="cover" 
           source={{ uri: song.photo }} 
           style={styles.albumArt}
@@ -63,6 +64,11 @@ export default function DiscoverView({ song, nextSong, play, pause, playing }) {
           </TouchableOpacity>
         </View>
       </View>
+      <SortModal
+        modalOpen={modalOpen}
+        toggleModal={toggleSortModal}
+        changeSortBy={changeSortBy}
+      />
     </View>
   );
 }
