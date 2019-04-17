@@ -6,7 +6,7 @@ import NavHead from '../../navigation/MainNavHead';
 export default function GenresView(props) {
   return (
     <View>
-      <NavHead play />
+      <NavHead />
       <View style={styles.contentContainer}>
         <Text style={styles.header}>Choose a genre</Text>
         <View style={styles.buttonsContainer}>
@@ -26,7 +26,7 @@ export default function GenresView(props) {
 
           <TouchableOpacity
             style={styles.genreButton}
-            onPress={() => props.setGenre({ display: 'Pop', value: 'pop' })}
+            onPress={() => props.setGenre({ display: 'R&B', value: 'rnb' })}
           >
             <Text style={styles.genreText}>R&B</Text>
           </TouchableOpacity>

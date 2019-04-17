@@ -10,9 +10,8 @@ import { getPlaylistGenre, getPlaylist } from '../selectors';
 export default [
   getPlaylistWatcher,
   getPlaylistScrollWatcher,
+  isRefreshingWatcher,
 ];
-
-// WATCHERS ////////////////////////////////////////////////////////
 
 function * getPlaylistWatcher() {
   yield takeLatest(actionTypes.GET_PLAYLIST, getPlaylistHandler);
@@ -22,7 +21,9 @@ function * getPlaylistScrollWatcher() {
   yield takeLatest(actionTypes.GET_PLAYLIST_SCROLL, getPlaylistScrollHandler);
 }
 
-// HANDLERS ////////////////////////////////////////////////////////
+function * isRefreshingWatcher() {
+  yield takeLatest(actionTypes.IS_REFRESHING, isRefreshingHandler);
+}
 
 function * getPlaylistHandler() {
   try {
@@ -45,5 +46,18 @@ function * getPlaylistScrollHandler() {
     yield put(playlistActions.setPlaylist([...playlist, ...data]));
   } catch(e) {
     console.log('getPlaylisScrollHandler error: ', e);
+  }
+}
+
+function * isRefreshingHandler() {
+  try {
+    yield put(playlistActions.setRefreshing(true));
+    const { value } = yield select(getPlaylistGenre);
+    const { data } = yield call(apiGetPlaylist, { date: Date.now(), genre: value });
+    yield put(playlistActions.setPlaylist(data));
+    yield put(playlistActions.setRefreshing(false));
+  } catch(e) {
+    yield put(playlistActions.setRefreshing(false));
+    console.log('isRefreshingHandler error: ', e);
   }
 }

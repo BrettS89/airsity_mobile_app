@@ -37,10 +37,18 @@ export const apiSignup = async body => {
   }
 };
 
+export const apiFacebookAuth = async body => {
+  try {
+    return await axios.post(`${URI}/auth/facebook`, body);
+  } catch(e) {
+    throw e;
+  }
+}
+
 export const apiGetSongs = async body => {
   const config = await getToken();
   try {
-    return await axios.get(`${URI}/songs/get/${body}`, config);
+    return await axios.get(`${URI}/songs/get/${body.genre}/${body.sort}`, config);
   } catch(e) {
     throw e;
   }
@@ -68,6 +76,15 @@ export const apiGetPlaylist = async body => {
   try {
     const config = await getToken();
     return await axios.get(`${URI}/playlist/get/${body.genre}/${body.date}`, config);
+  } catch(e) {
+    throw e;
+  }
+};
+
+export const apiPlaylistPlay = async genre => {
+  try {
+    const config = await getToken();
+    return await axios.get(`${URI}/playlist/play/${genre}`, config);
   } catch(e) {
     throw e;
   }

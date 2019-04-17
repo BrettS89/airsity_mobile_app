@@ -10,6 +10,7 @@ const mapStateToProps = state => {
     state: {
       songs: state.songs.songs,
       player: state.player,
+      sortModal: state.songs.openSortModal,
     },
   };
 };

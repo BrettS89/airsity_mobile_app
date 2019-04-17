@@ -11,10 +11,8 @@ class Login extends React.Component {
       password: null,
       loading: false,
     };
-
-    SplashScreen.hide();
   }
-  
+
   onTextChange = (data, type) => {
     if (type === 'email') {
       this.setState({ email: data });
@@ -33,6 +31,7 @@ class Login extends React.Component {
   }
 
   render() {
+    SplashScreen.hide();
     return (
       <LoginView
         onTextChange={this.onTextChange}
@@ -41,6 +40,8 @@ class Login extends React.Component {
         navigateTo={() => this.props.navigation.navigate('LegalDocs')}
         error={this.props.state.auth.loginError}
         loading={this.props.state.auth.loginLoading}
+        facebookAuth={this.props.actions.facebookAuth}
+        facebookLoading={this.props.state.auth.facebookLoading}
       />
     );
   }

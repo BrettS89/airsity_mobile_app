@@ -1,4 +1,6 @@
 import { AsyncStorage } from 'react-native';
+import { Constants, Facebook } from 'expo';
+import axios from 'axios';
 import {
   call, put, takeLatest, select, fork,
 } from 'redux-saga/effects';
@@ -6,14 +8,16 @@ import * as actionTypes from '../actions/actionTypes';
 import * as songsActions from '../actions/songsActions';
 import * as authActions from '../actions/authActions';
 import * as navigationActions from '../actions/navigationActions';
-import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs } from '../../lib/apiCalls';
+import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs, apiFacebookAuth } from '../../lib/apiCalls';
 import { soundObject1, soundObject2 } from '../../index';
+import { getIsoDate, validateEmailFormat } from '../../utilities/misc';
 
 export default [
   loginWatcher,
   signupWatcher,
   appLoadWatcher,
   logoutWatcher,
+  facebookAuthWatcher,
 ];
 
 function * appLoadWatcher() {
@@ -28,6 +32,10 @@ function * signupWatcher() {
   yield takeLatest(actionTypes.ON_SIGNUP, signupHandler);
 }
 
+function * facebookAuthWatcher() {
+  yield takeLatest(actionTypes.FACEBOOK_AUTH, facebookAuthHandler);
+}
+
 function * logoutWatcher() {
   yield takeLatest(actionTypes.LOGOUT, logoutHandler);
 }
@@ -35,10 +43,7 @@ function * logoutWatcher() {
 function * appLoadHandler() {
   try {
     yield call(apiIsLoggedIn);
-    const { data } = yield apiGetSongs('hiphop');
-    yield soundObject1.loadAsync({ uri: data[0].audio });
-    yield soundObject2.loadAsync({ uri: data[1].audio });
-    yield put(songsActions.setSongs(data));
+    yield fetchSongs();
     yield put(navigationActions.navigateTo({ current: 'Main', previous: 'Login' }));
   } catch(e) {
     console.log('appLoadHandler error: ', e);
@@ -67,15 +72,46 @@ function * signupHandler({ payload }) {
   try {
     yield put(authActions.setSignupLoading(true));
     yield put(authActions.setSignupError(false));
+    if (!validateEmailFormat(payload.email)) {
+      yield put(authActions.setSignupError(true));
+      yield put(authActions.setSignupLoading(false));
+      return;
+    }
     const { data } = yield call(apiSignup, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Signup' }));
+    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Signup' }));
     yield put(authActions.setSignupLoading(false));
   } catch(e) {
     console.log('Signup error ', e);
     yield put(authActions.setSignupError(true));
     yield put(authActions.setSignupLoading(false));
+  }
+}
+
+function * facebookAuthHandler() {
+  try {
+    yield put(authActions.setFacebookLoading(true));
+    const { type, token } = yield Facebook.logInWithReadPermissionsAsync('2151282281652049', {
+      permissions: ['public_profile', 'email']
+    });
+
+    if (type === 'cancel') return;
+
+    let { data } = yield axios.get(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email`);
+    data.date = Date.now();
+    data.isoDate = getIsoDate();
+    const res = yield call(apiFacebookAuth, data);
+    const airsityToken = res.data.token;
+    yield AsyncStorage.setItem('token', JSON.stringify(airsityToken));
+    yield fetchSongs();
+    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Login' }));
+    yield put(authActions.setFacebookLoading(false));
+  } catch(e) {
+    console.log('facebookAuthHandler error: ', e);
+    yield put(authActions.setLoginError(true));
+    yield put(authActions.setSignupError(true));
+    yield put(authActions.setFacebookLoading(false));
   }
 }
 
@@ -93,11 +129,29 @@ function * fetchSongs() {
   try {
     yield soundObject1.unloadAsync();
     yield soundObject2.unloadAsync();
-    const { data } = yield apiGetSongs('hiphop');
-    yield soundObject1.loadAsync({ uri: data[0].audio });
-    yield soundObject2.loadAsync({ uri: data[1].audio });
-    yield put(songsActions.setSongs(data));
+    const lastGenre = yield AsyncStorage.getItem('genre');
+    const lastSort = yield AsyncStorage.getItem('sort');
+    const genre = lastGenre ? JSON.parse(lastGenre).value : 'hiphop';
+    const sort = lastSort ? JSON.parse(lastSort).value : 'popular';
+    const { data } = yield apiGetSongs({ genre, sort });
+    const songs = data.sort((a, b) => b.popularity - a.popularity);
+    yield soundObject1.loadAsync({ uri: songs[0].audio });
+    yield soundObject2.loadAsync({ uri: songs[1].audio });
+    yield put(songsActions.setSongs(songs));
+    
+    if (lastGenre) {
+      yield put(songsActions.setGenreDisplay(JSON.parse(lastGenre)));
+    }  else {
+      yield put(songsActions.setGenreDisplay({ value: 'hiphop', display: 'Hip hop' }));
+    }
+    if (lastSort) {
+      yield put(songsActions.changeSortByDisplay(JSON.parse(lastSort)));
+    }  else {
+      yield put(songsActions.changeSortByDisplay({ value: 'popular', display: 'Popular songs' }));
+    }
+
   } catch(e) {
+    console.log('Fetch songs error: ', e);
     throw e;
   }
 }

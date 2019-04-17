@@ -1,4 +1,4 @@
-import { ON_LOGIN, ON_SIGNUP, SET_LOGIN_ERROR, SET_SIGNUP_ERROR, LOGOUT, SET_LOGIN_LOADING, SET_SIGNUP_LOADING } from './actionTypes';
+import { ON_LOGIN, ON_SIGNUP, SET_LOGIN_ERROR, SET_SIGNUP_ERROR, LOGOUT, SET_LOGIN_LOADING, SET_SIGNUP_LOADING, FACEBOOK_AUTH, SET_FACEBOOK_LOADING } from './actionTypes';
 
 export const onLogin = payload => ({
   type: ON_LOGIN,
@@ -7,6 +7,11 @@ export const onLogin = payload => ({
 
 export const onSignup = payload => ({
   type: ON_SIGNUP,
+  payload,
+});
+
+export const facebookAuth = payload => ({
+  type: FACEBOOK_AUTH,
   payload,
 });
 
@@ -31,6 +36,11 @@ export const setLoginLoading = payload => ({
 
 export const setSignupLoading = payload => ({
   type: SET_SIGNUP_LOADING,
+  payload,
+});
+
+export const setFacebookLoading = payload => ({
+  type: SET_FACEBOOK_LOADING,
   payload,
 });
 

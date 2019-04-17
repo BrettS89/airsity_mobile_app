@@ -8,13 +8,15 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.2.0",
     "orientation": "portrait",
+    "facebookScheme": "fb2151282281652049",
+    "facebookAppId": "2151282281652049",
+    "facebookDisplayName": "Airsity",
     "icon": "./assets/images/airsityIcon.png",
     "splash": {
       "image": "./assets/images/airsity_splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,11 +26,19 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.airsity.airsity"
+      "bundleIdentifier": "com.airsity.airsity",
+      "splash": {
+        "image": "./assets/images/airsity_splash.png",
+        "resizeMode": "contain"
+      }
     },
     "android": {
       "package": "com.airsity.airsity",
-      "versionCode": 1
+      "versionCode": 4,
+      "splash": {
+        "image": "./assets/images/airsity_splash.png",
+        "resizeMode": "cover"
+      }
     }
   }
 }

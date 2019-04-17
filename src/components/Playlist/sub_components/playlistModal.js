@@ -31,6 +31,10 @@ export default function PlaylistModal({ modalOpen, closeModal, selectGenre }) {
                 <Text style={styles.modalText}>Pop</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity style={styles.modalButton} onPress={() => selectGenre({ display: 'R&B', value: 'rnb' })}>
+                <Text style={styles.modalText}>R&B</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity style={styles.modalButton} onPress={() => selectGenre({ display: 'EDM', value: 'edm' })}>
                 <Text style={styles.modalText}>EDM</Text>
               </TouchableOpacity>

@@ -6,7 +6,7 @@ import Pause from 'react-native-vector-icons/MaterialIcons';
 import player from '../../../redux/reducers/player';
 
 export default function SongCard({ song, play, pause, playing, playingId }) {
-  const { song: { photo, title, artist, audio } } = song;
+  const { song: { photo, title, artist, audio, genre } } = song;
 
   const renderPlayOrPause = () => {
     if (playing && playingId === song._id) {
@@ -17,7 +17,7 @@ export default function SongCard({ song, play, pause, playing, playingId }) {
       );
     }
     return (
-      <TouchableOpacity style={styles.actionButton} onPress={() => play({ _id: song._id, audio })}>
+      <TouchableOpacity style={styles.actionButton} onPress={() => play({ _id: song._id, audio, genre })}>
         <Player name="play-circle" size={55} color={'rgba(255, 255, 255, 0.7)'} />
       </TouchableOpacity>
     );
