@@ -1,10 +1,11 @@
-import { SET_PLAYLIST, TOGGLE_PLAYLIST_MODAL, SET_PLAYLIST_GENRE, SET_REFRESHING, ADD_TO_PLAYLIST } from '../actions/actionTypes';
+import { SET_PLAYLIST, TOGGLE_PLAYLIST_MODAL, SET_PLAYLIST_GENRE, SET_REFRESHING, ADD_TO_PLAYLIST, SET_STREAMING_SERVICE_REDUCER } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   songs: [],
   genre: { display: 'All genres', value: 'all' },
   modal: false,
   isRefreshing: false,
+  streamingService: 'youtube',
 };
 
 export default function(state = INITIAL_STATE, { type, payload }) {
@@ -38,6 +39,12 @@ export default function(state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         songs: [payload, ...state.songs],
+      };
+
+    case SET_STREAMING_SERVICE_REDUCER:
+      return {
+        ...state,
+        streamingService: payload,
       };
 
     default:

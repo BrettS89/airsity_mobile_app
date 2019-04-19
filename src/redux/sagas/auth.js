@@ -8,6 +8,7 @@ import * as actionTypes from '../actions/actionTypes';
 import * as songsActions from '../actions/songsActions';
 import * as authActions from '../actions/authActions';
 import * as navigationActions from '../actions/navigationActions';
+import * as playlistActions from '../actions/playlistActions';
 import { apiLogin, apiSignup, apiIsLoggedIn, apiGetSongs, apiFacebookAuth } from '../../lib/apiCalls';
 import { soundObject1, soundObject2 } from '../../index';
 import { getIsoDate, validateEmailFormat } from '../../utilities/misc';
@@ -42,9 +43,14 @@ function * logoutWatcher() {
 
 function * appLoadHandler() {
   try {
-    yield call(apiIsLoggedIn);
+    const { data } = yield call(apiIsLoggedIn);
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Main', previous: 'Login' }));
+    if (data.streamingService === 'none') {
+      yield put(navigationActions.navigateTo({ current: 'SetStreamService', previous: 'Login' }));
+    } else {
+      yield put(navigationActions.navigateTo({ current: 'Main', previous: 'Login' }));
+      yield put(playlistActions.setStreamingServiceReducer(data.streamingService));
+    }
   } catch(e) {
     console.log('appLoadHandler error: ', e);
     yield put(navigationActions.navigateTo({ current: 'Login', previous: 'Auth' }));
@@ -58,7 +64,12 @@ function * loginHandler({ payload }) {
     const { data } = yield call(apiLogin, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Login' }));
+    if (data.streamingService === 'none') {
+      yield put(navigationActions.navigateTo({ current: 'SetStreamService', previous: 'Login' }));
+    } else {
+      yield put(playlistActions.setStreamingServiceReducer(data.streamingService));
+      yield put(navigationActions.navigateTo({ current: 'Discover', previous: 'Login' }));
+    }
     yield put(authActions.setLoginLoading(false));
   } catch(e) {
     yield put(authActions.setLoginError(e.toString()))
@@ -80,7 +91,8 @@ function * signupHandler({ payload }) {
     const { data } = yield call(apiSignup, payload);
     yield AsyncStorage.setItem('token', JSON.stringify(data.token));
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Signup' }));
+    // yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Signup' }));
+    yield put(navigationActions.navigateTo({ current: 'SetStreamService', previous: 'Signup' }));
     yield put(authActions.setSignupLoading(false));
   } catch(e) {
     console.log('Signup error ', e);
@@ -96,7 +108,10 @@ function * facebookAuthHandler() {
       permissions: ['public_profile', 'email']
     });
 
-    if (type === 'cancel') return;
+    if (type === 'cancel') {
+      yield put(authActions.setFacebookLoading(false));
+      return;
+    }
 
     let { data } = yield axios.get(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email`);
     data.date = Date.now();
@@ -105,7 +120,12 @@ function * facebookAuthHandler() {
     const airsityToken = res.data.token;
     yield AsyncStorage.setItem('token', JSON.stringify(airsityToken));
     yield fetchSongs();
-    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Login' }));
+    if (res.data.streamingService === 'none') {
+      yield put(navigationActions.navigateTo({ current: 'SetStreamService', previous: 'Signup' }));
+    } else {
+      yield put(playlistActions.setStreamingServiceReducer(data.streamingService));
+      yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Login' }));
+    }
     yield put(authActions.setFacebookLoading(false));
   } catch(e) {
     console.log('facebookAuthHandler error: ', e);

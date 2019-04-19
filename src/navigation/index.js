@@ -14,6 +14,7 @@ import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Signup from '../containers/signup';
 import Login from '../containers/login';
 import Auth from '../containers/auth';
+import SetStreamService from '../containers/setStreamService';
 import Genres from '../containers/genres';
 import Discover from '../containers/discover';
 import Playlist from '../containers/playlist';
@@ -27,6 +28,7 @@ const authNav = createBottomTabNavigator({
   Auth: { screen: Auth },
   Login: { screen: Login },
   Signup: { screen: Signup },
+  SetStreamService: { screen: SetStreamService },
   LegalDocs: { screen: LegalDocs },
   TermsAndConditions: { screen: TermsAndConditions },
   PrivacyPolicy: { screen: PrivacyPolicy },

@@ -89,3 +89,12 @@ export const apiPlaylistPlay = async genre => {
     throw e;
   }
 };
+
+export const apiSetStreamingService = async payload => {
+  try {
+    const config = await getToken();
+    return await axios.post(`${URI}/auth/setstreaming`, payload, config);
+  } catch(e) {
+    throw e;
+  }
+};

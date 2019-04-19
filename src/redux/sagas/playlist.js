@@ -4,13 +4,15 @@ import {
 import * as actionTypes from '../actions/actionTypes';
 import * as appActions from '../actions/appActions';
 import * as playlistActions from '../actions/playlistActions';
-import { apiGetPlaylist } from '../../lib/apiCalls';
+import * as navigationActions from '../actions/navigationActions';
+import { apiGetPlaylist, apiSetStreamingService } from '../../lib/apiCalls';
 import { getPlaylistGenre, getPlaylist } from '../selectors';
 
 export default [
   getPlaylistWatcher,
   getPlaylistScrollWatcher,
   isRefreshingWatcher,
+  setStreamingServiceWatcher,
 ];
 
 function * getPlaylistWatcher() {
@@ -23,6 +25,10 @@ function * getPlaylistScrollWatcher() {
 
 function * isRefreshingWatcher() {
   yield takeLatest(actionTypes.IS_REFRESHING, isRefreshingHandler);
+}
+
+function * setStreamingServiceWatcher() {
+  yield takeLatest(actionTypes.SET_STREAMING_SERVICE, setStreamingServiceHandler);
 }
 
 function * getPlaylistHandler() {
@@ -59,5 +65,20 @@ function * isRefreshingHandler() {
   } catch(e) {
     yield put(playlistActions.setRefreshing(false));
     console.log('isRefreshingHandler error: ', e);
+  }
+}
+
+function * setStreamingServiceHandler({ payload }) {
+  try {
+    const body = { streamingService: payload };
+    console.log(body);
+    // Navigate to genre screen here
+    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Signup' }));
+    const { data } = yield call(apiSetStreamingService, body);
+    yield put(playlistActions.setStreamingServiceReducer(data.streamingService));
+  } catch(e) {
+    // Navigate to genre screen here
+    yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Signup' }));
+    console.log('setStreamingServiceHandler error: ', e);
   }
 }

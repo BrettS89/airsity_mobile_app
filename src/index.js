@@ -18,7 +18,16 @@ class AppContainer extends React.Component {
     SplashScreen.preventAutoHide();
   }
 
+  playInSilentMode = async () => {
+    try {
+      await Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
+    } catch(e) {
+      console.log('set play in silent mode error: ', e);
+    }
+  };
+
   render () {
+    this.playInSilentMode();
     return (
       <Provider store={store()}>
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
