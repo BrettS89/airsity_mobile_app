@@ -1,22 +1,16 @@
-import { Audio } from 'expo';
 import {
   call, put, takeLatest, select,
 } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
-import * as playerActions from '../actions/playerActions';
 import { getTrackSelector } from '../selectors';
 
 export default [
   playWatcher,
 ];
 
-// WATCHERS //
-
 function * playWatcher() {
   yield takeLatest(actionTypes.PLAY, playHandler);
 }
-
-// HANDLERS //
 
 function * playHandler({ payload }) {
   try {

@@ -43,6 +43,15 @@ export const apiFacebookAuth = async body => {
   } catch(e) {
     throw e;
   }
+};
+
+export const apiSetPushToken = async payload => {
+  try {
+    const config = await getToken();
+    return await axios.post(`${URI}/auth/setpushtoken`, payload, config);
+  } catch(e) {
+    throw e;
+  }
 }
 
 export const apiGetSongs = async body => {

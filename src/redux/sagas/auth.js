@@ -123,7 +123,7 @@ function * facebookAuthHandler() {
     if (res.data.streamingService === 'none') {
       yield put(navigationActions.navigateTo({ current: 'SetStreamService', previous: 'Signup' }));
     } else {
-      yield put(playlistActions.setStreamingServiceReducer(data.streamingService));
+      yield put(playlistActions.setStreamingServiceReducer(res.data.streamingService));
       yield put(navigationActions.navigateTo({ current: 'Genres', previous: 'Login' }));
     }
     yield put(authActions.setFacebookLoading(false));

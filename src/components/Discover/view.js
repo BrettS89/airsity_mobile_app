@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeepAwake } from 'expo';
+import { useKeepAwake } from 'expo-keep-awake';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { getIsoDate } from '../../utilities/misc';
 import styles from './styles';
@@ -10,6 +10,7 @@ import Player from 'react-native-vector-icons/FontAwesome';
 import Pause from 'react-native-vector-icons/MaterialIcons';
 
 export default function DiscoverView({ song, nextSong, play, pause, playing, modalOpen, toggleSortModal, changeSortBy }) {
+  useKeepAwake();
   const body = {
     date: Date.now(),
     isoDate: getIsoDate(),
@@ -40,7 +41,6 @@ export default function DiscoverView({ song, nextSong, play, pause, playing, mod
 
   return (
     <View style={{ flex: 1 }}>
-      <KeepAwake />
       <NavHead play />
       <View style={styles.mainContainer}>
         <Image

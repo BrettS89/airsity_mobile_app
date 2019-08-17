@@ -42,12 +42,13 @@ export default StyleSheet.create({
   },
   title: {
     flexWrap: 'wrap',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
     marginBottom: 5,
   },
   artist: {
     flexWrap: 'wrap',
+    fontSize: 13,
   },
   // playlist modal
   modalContainer: {

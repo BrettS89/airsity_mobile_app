@@ -3,12 +3,12 @@
     "name": "Airsity",
     "slug": "airsity_mobile_app",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.2.0",
+    "version": "1.3.1",
     "orientation": "portrait",
     "facebookScheme": "fb2151282281652049",
     "facebookAppId": "2151282281652049",
@@ -34,7 +34,7 @@
     },
     "android": {
       "package": "com.airsity.airsity",
-      "versionCode": 4,
+      "versionCode": 5,
       "splash": {
         "image": "./assets/images/airsity_splash.png",
         "resizeMode": "cover"

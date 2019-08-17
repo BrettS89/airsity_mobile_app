@@ -1,7 +1,8 @@
-import { Audio, SplashScreen } from 'expo';
+import { SplashScreen } from 'expo';
 import { soundObject1, soundObject2, playlistSoundObject } from '../../index';
 import React from 'react';
 import DiscoverView from './view';
+import pushNotifications from '../../services/pushNotifications';
 
 class Discover extends React.Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class Discover extends React.Component {
     };
   }
 
+  componentDidMount() {
+    pushNotifications();
+  }
+ 
   nextSong = async action => {
     await playlistSoundObject.unloadAsync();
     if (this.state.player === 1) {

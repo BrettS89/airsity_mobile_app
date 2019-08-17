@@ -1,15 +1,16 @@
 import React from 'react';
-import { KeepAwake } from 'expo';
+import { useKeepAwake } from 'expo-keep-awake';
+
 import { View, Text, FlatList } from 'react-native';
 import styles from './styles';
 import NavHead from '../../navigation/MainNavHead';
 import SongCard from './sub_components/songCard';
 import PlaylistModal from './sub_components/playlistModal';
 
-export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre, refresh, isRefreshing, loading }) {
+export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre, refresh, isRefreshing, loading, streamIcon }) {
+  useKeepAwake();
   return songs.length > 0 || loading ? (
     <View style={styles.mainContainer}>
-      <KeepAwake />
       <NavHead playlist />
       <View style={styles.playlistContainer}>
         <FlatList
@@ -28,6 +29,7 @@ export default function Playlist({ state, songs, play, pause, playing, playingId
               playing={playing}
               playingId={playingId}
               pause={pause}
+              streamIcon={streamIcon}
             />
           )}
         />

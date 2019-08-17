@@ -1,5 +1,6 @@
 import React from 'react';
-import { Audio, SplashScreen } from 'expo';
+import { SplashScreen, Notifications } from 'expo';
+import { Audio } from 'expo-av';
 import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './redux';
@@ -18,9 +19,26 @@ class AppContainer extends React.Component {
     SplashScreen.preventAutoHide();
   }
 
+  async componentDidMount() {
+    Notifications.addListener(this.listen);
+    
+  }
+
+  listen = ({ origin, data }) => {
+    console.log(origin, data);
+  };
+
   playInSilentMode = async () => {
     try {
-      await Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
+      await Audio.setAudioModeAsync({ 
+        playsInSilentModeIOS: true,
+        staysActiveInBackground: true,
+        allowsRecordingIOS: false,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        shouldDuckAndroid: false,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: true,
+      });
     } catch(e) {
       console.log('set play in silent mode error: ', e);
     }

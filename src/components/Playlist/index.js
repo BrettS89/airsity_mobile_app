@@ -68,6 +68,7 @@ class Playlist extends React.Component {
         refresh={this.refresh}
         isRefreshing={this.props.state.playlist.isRefreshing}
         loading={this.props.state.loading}
+        streamIcon={this.props.state.playlist.streamingService}
       />
     );
   }
