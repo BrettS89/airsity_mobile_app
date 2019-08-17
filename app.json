@@ -24,6 +24,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "notification": {
+      "icon": "./assets/airsity_push.png",
+      "color": "#ffffff",
+      "androidMode": "default"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.airsity.airsity",
