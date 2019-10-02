@@ -6,7 +6,7 @@ import * as playlistActions from '../redux/actions/playlistActions';
 import * as songsActions from '../redux/actions/songsActions';
 import Colors from '../shared/styles/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { LOGO5 } from '../../assets/images';
+import { LOGO6 } from '../../assets/images';
 import { getPlatform } from '../utilities/getPlatform';
 
 const { height, iphonex, iphonexr } = getPlatform();
@@ -86,7 +86,7 @@ class MainNavHead extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.logoContainer}>
-          <Image source={LOGO5} resizeMode="contain" style={{ width: 95, height: 40 }} />
+          <Image source={LOGO6} resizeMode="contain" style={{ width: 105, height: 40 }} />
         </View>
           {this.renderBadge()}
       </View>
