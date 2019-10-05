@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   genreText: {
     color: '#fff',
@@ -78,6 +78,13 @@ class MainNavHead extends React.Component {
           <Icon style={styles.caret} name="caret-down" color="#fff" size={16} />
         </TouchableOpacity>
       );
+    }
+    if (this.props.trending) {
+      return (
+        <View style={[styles.genreContainer, { width: 120 }]} onPress={this.props.actions.togglePlaylistModal}>
+          <Text style={styles.genreText}>Top 25 Trending</Text>
+        </View>
+      )
     }
   }
 

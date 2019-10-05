@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.4.2",
+    "version": "1.4.3",
     "orientation": "portrait",
     "facebookScheme": "fb2151282281652049",
     "facebookAppId": "2151282281652049",
@@ -44,7 +44,7 @@
     },
     "android": {
       "package": "com.airsity.airsity",
-      "versionCode": 8,
+      "versionCode": 9,
       "splash": {
         "image": "./assets/images/gSplash.png",
         "resizeMode": "cover"

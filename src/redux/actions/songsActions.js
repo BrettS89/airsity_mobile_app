@@ -1,4 +1,4 @@
-import { GET_SONGS, SET_SONGS, NEXT_SONG, SET_GENRE, SET_GENRE_DISPLAY, CHANGE_SORT_BY, TOGGLE_SORT_MODAL, CHANGE_SORT_BY_DISPLAY } from './actionTypes';
+import { GET_SONGS, SET_SONGS, NEXT_SONG, SET_GENRE, SET_GENRE_DISPLAY, CHANGE_SORT_BY, TOGGLE_SORT_MODAL, CHANGE_SORT_BY_DISPLAY, GET_TRENDING, SET_TRENDING } from './actionTypes';
 
 export const getSongs = payload => ({
   type: GET_SONGS,
@@ -37,5 +37,14 @@ export const changeSortBy = payload => ({
 
 export const changeSortByDisplay = payload => ({
   type: CHANGE_SORT_BY_DISPLAY,
+  payload,
+});
+
+export const getTrendingSongs = () => ({
+  type: GET_TRENDING,
+});
+
+export const setTrendingSongs = payload => ({
+  type: SET_TRENDING,
   payload,
 });

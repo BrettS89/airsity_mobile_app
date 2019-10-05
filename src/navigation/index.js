@@ -10,6 +10,7 @@ import Icon1 from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon5 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Signup from '../containers/signup';
 import Login from '../containers/login';
@@ -22,6 +23,7 @@ import Account from '../containers/account';
 import TermsAndConditions from '../containers/TermsAndConditions';
 import PrivacyPolicy from '../containers/PrivacyPolicy';
 import LegalDocs from '../components/LegalDocs';
+import Trending from '../containers/trending/';
 
 
 const authNav = createBottomTabNavigator({
@@ -49,6 +51,16 @@ const mainNav = createBottomTabNavigator({
       activeTintColor: Colors.main,
       tabBarIcon: ({ tintColor }) => (
         <Icon2 name="list" size={26} color={tintColor}/>
+      )
+    }
+  },
+  Trending: {
+    screen: Trending,
+    navigationOptions: {
+      title: 'Hot',
+      activeTintColor: Colors.main,
+      tabBarIcon: ({ tintColor }) => (
+        <Icon5 name="fire" size={30} color={tintColor}/>
       )
     }
   },

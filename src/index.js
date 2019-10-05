@@ -21,7 +21,6 @@ class AppContainer extends React.Component {
 
   async componentDidMount() {
     Notifications.addListener(this.listen);
-    
   }
 
   listen = ({ origin, data }) => {

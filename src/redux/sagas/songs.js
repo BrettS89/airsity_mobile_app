@@ -8,7 +8,7 @@ import * as playerActions from '../actions/playerActions';
 import * as appActions from '../actions/appActions';
 import * as navigationActions from '../actions/navigationActions';
 import * as playlistActions from '../actions/playlistActions';
-import { apiGetSongs, apiListened, apiAddToPlaylist } from '../../lib/apiCalls';
+import { apiGetSongs, apiListened, apiAddToPlaylist, apiGetTrendingSongs } from '../../lib/apiCalls';
 import { getSongsSelector, getGenre, getPlaylistGenre, getSort } from '../selectors';
 import { soundObject1, soundObject2 } from '../../index';
 
@@ -16,6 +16,7 @@ export default [
   nextSongWatcher,
   setGenreWatcher,
   changeSortByWatcher,
+  getTrendingSongsWatcher
 ];
 
 function * nextSongWatcher() {
@@ -28,6 +29,10 @@ function * setGenreWatcher() {
 
 function * changeSortByWatcher() {
   yield takeLatest(actionTypes.CHANGE_SORT_BY, changeSortByHandler);
+}
+
+function * getTrendingSongsWatcher() {
+  yield takeLatest(actionTypes.GET_TRENDING, getTrendingSongsHandler);
 }
 
 function * nextSongHandler({ payload }) {
@@ -106,5 +111,17 @@ function * changeSortByHandler({ payload }) {
   } catch(e) {
     yield put(appActions.setNotLoading());
     console.log('Change sort by handler: ', e);
+  }
+}
+
+function * getTrendingSongsHandler() {
+  try {
+    yield put(appActions.setLoading());
+    const { data: { data } } = yield call(apiGetTrendingSongs);
+    yield put(songsActions.setTrendingSongs(data));
+    yield put(appActions.setNotLoading());
+  } catch(e) {
+    yield put(appActions.setNotLoading());
+    console.log('getTrendingSongsHandler error: ', e);
   }
 }

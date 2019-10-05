@@ -27,6 +27,8 @@ export const SET_GENRE_DISPLAY = 'SET_GENRE_DISPLAY';
 export const TOGGLE_SORT_MODAL = 'TOGGLE_SORT_MODAL';
 export const CHANGE_SORT_BY = 'CHANGE_SORT_BY';
 export const CHANGE_SORT_BY_DISPLAY = 'CHANGE_SORT_BY_DISPLAY';
+export const GET_TRENDING = 'GET_TRENDING';
+export const SET_TRENDING = 'SET_TRENDING';
 
 // player actions
 export const SET_TRACK = 'SET_AUDIO';

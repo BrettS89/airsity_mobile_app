@@ -1,6 +1,5 @@
 import React from 'react';
 import { useKeepAwake } from 'expo-keep-awake';
-
 import { View, Text, FlatList } from 'react-native';
 import styles from './styles';
 import NavHead from '../../navigation/MainNavHead';

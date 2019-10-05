@@ -99,10 +99,24 @@ export const apiPlaylistPlay = async genre => {
   }
 };
 
+export const apiTrendingPlay = async () => {
+  const config = await getToken();
+  return await axios.get(`${URI}/trending/track`, config);
+};
+
 export const apiSetStreamingService = async payload => {
   try {
     const config = await getToken();
     return await axios.post(`${URI}/auth/setstreaming`, payload, config);
+  } catch(e) {
+    throw e;
+  }
+};
+
+export const apiGetTrendingSongs = async () => {
+  try {
+    const config = await getToken();
+    return await axios.get(`${URI}/trending/get`, config);
   } catch(e) {
     throw e;
   }
