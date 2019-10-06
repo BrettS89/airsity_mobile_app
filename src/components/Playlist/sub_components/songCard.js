@@ -5,8 +5,8 @@ import Player from 'react-native-vector-icons/FontAwesome';
 import Pause from 'react-native-vector-icons/MaterialIcons';
 import StreamIcon from 'react-native-vector-icons/Entypo';
 
-export default function SongCard({ song, play, pause, playing, playingId, streamIcon }) {
-  const { song: { photo, title, artist, audio, genre, openInSpotify } } = song;
+export default function SongCard({ song, play, pause, playing, playingId, streamIcon, trackFullPlay }) {
+  const { song: { photo, title, artist, audio, genre, openInSpotify }, _id } = song;
 
   const renderTitle = () => {
     return title.length > 37
@@ -29,7 +29,7 @@ export default function SongCard({ song, play, pause, playing, playingId, stream
       );
     }
     return (
-      <TouchableOpacity style={styles.actionButton} onPress={() => play({ _id: song._id, audio, genre })}>
+      <TouchableOpacity style={styles.actionButton} onPress={() => play({ _id: song._id, audio, genre, playlist_id: _id })}>
         <Player name="play-circle" size={55} color={'rgba(255, 255, 255, 0.7)'} />
       </TouchableOpacity>
     );
@@ -45,7 +45,8 @@ export default function SongCard({ song, play, pause, playing, playingId, stream
     const url = streamIcon === 'spotify'
       ? openInSpotify
       : `https://www.youtube.com/results?search_query=${artist}+${title}`.split(' ').join('+');
-    Linking.openURL(url); 
+    Linking.openURL(url);
+    trackFullPlay({ id: _id, genre });
   };
 
   return (

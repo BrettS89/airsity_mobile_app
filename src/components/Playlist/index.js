@@ -1,7 +1,7 @@
 import React from 'react';
 import PlaylistView from './view';
 import { soundObject1, soundObject2, playlistSoundObject } from '../../index';
-import { apiPlaylistPlay } from '../../lib/apiCalls';
+import { apiPlaylistPlay, apiPlaylistPlay2, apiFullPlay } from '../../lib/apiCalls';
 
 class Playlist extends React.Component {
   state = {
@@ -15,21 +15,23 @@ class Playlist extends React.Component {
 
   play = async payload => {
     try {
-    await soundObject1.pauseAsync();
-    await soundObject2.pauseAsync();
-    if (payload._id === this.state.playingId) {
-      await playlistSoundObject.playAsync();
-      this.setState({ playing: true });
-      this.props.actions.setPlaylistIsPlaying();
-    } else {
-      await playlistSoundObject.unloadAsync();
-      await playlistSoundObject.loadAsync({ uri: payload.audio });
-      await playlistSoundObject.playAsync();
-      await playlistSoundObject.setIsLoopingAsync(true);
-      this.props.actions.setPlaylistIsPlaying();
-      await this.setState({ playingId: payload._id });
-      apiPlaylistPlay(payload.genre);
-    }
+      await soundObject1.pauseAsync();
+      await soundObject2.pauseAsync();
+      if (payload._id === this.state.playingId) {
+        await playlistSoundObject.playAsync();
+        this.setState({ playing: true });
+        this.props.actions.setPlaylistIsPlaying();
+      } else {
+        await playlistSoundObject.unloadAsync();
+        await playlistSoundObject.loadAsync({ uri: payload.audio });
+        await playlistSoundObject.playAsync();
+        await playlistSoundObject.setIsLoopingAsync(true);
+        this.props.actions.setPlaylistIsPlaying();
+        await this.setState({ playingId: payload._id });
+        // apiPlaylistPlay(payload.genre);
+        const data = { id: payload.playlist_id, genre: payload.genre };
+        apiPlaylistPlay2(data);
+      }
     } catch(e) {
       console.log('Playlist play error: ', e);
     }
@@ -69,6 +71,7 @@ class Playlist extends React.Component {
         isRefreshing={this.props.state.playlist.isRefreshing}
         loading={this.props.state.loading}
         streamIcon={this.props.state.playlist.streamingService}
+        trackFullPlay={apiFullPlay}
       />
     );
   }

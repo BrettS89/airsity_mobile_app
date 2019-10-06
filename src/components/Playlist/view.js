@@ -6,7 +6,7 @@ import NavHead from '../../navigation/MainNavHead';
 import SongCard from './sub_components/songCard';
 import PlaylistModal from './sub_components/playlistModal';
 
-export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre, refresh, isRefreshing, loading, streamIcon }) {
+export default function Playlist({ state, songs, play, pause, playing, playingId, playlistGetMore, modalOpen, closeModal, selectGenre, refresh, isRefreshing, loading, streamIcon, trackFullPlay }) {
   useKeepAwake();
   return songs.length > 0 || loading ? (
     <View style={styles.mainContainer}>
@@ -29,6 +29,7 @@ export default function Playlist({ state, songs, play, pause, playing, playingId
               playingId={playingId}
               pause={pause}
               streamIcon={streamIcon}
+              trackFullPlay={trackFullPlay}
             />
           )}
         />

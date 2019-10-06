@@ -99,9 +99,19 @@ export const apiPlaylistPlay = async genre => {
   }
 };
 
+export const apiPlaylistPlay2 = async body => {
+  const config = await getToken();
+  return await axios.post(`${URI}/playlist/play`, body, config);
+};
+
 export const apiTrendingPlay = async () => {
   const config = await getToken();
   return await axios.get(`${URI}/trending/track`, config);
+};
+
+export const apiFullPlay = async body => {
+  const config = await getToken();
+  return await axios.post(`${URI}/playlist/fullplay`, body, config);
 };
 
 export const apiSetStreamingService = async payload => {
